@@ -1,18 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:17 by emende           ###   ########.fr       */
+/*   Created: 2021/12/06 19:42:03 by emende            #+#    #+#             */
+/*   Updated: 2021/12/06 21:23:46 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+char	*ft_strrev(char *str)
 {
-	static char *arr[FD_SIZE];
+	size_t	start;
+	size_t	end;
+	char	c;
+
+	if (!str)
+		return (NULL);
+	start = 0;
+	end = ft_strlen(str) - 1;
+	while (start < end)
+	{
+		c = str[start];
+		str[start] = str[end];
+		str[end] = c;
+		start++;
+		end--;
+	}
+	return (str);
 }

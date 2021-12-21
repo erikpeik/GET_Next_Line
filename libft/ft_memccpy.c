@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:17 by emende           ###   ########.fr       */
+/*   Created: 2021/11/27 00:36:54 by emende            #+#    #+#             */
+/*   Updated: 2021/12/09 19:15:17 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	static char *arr[FD_SIZE];
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+		if (((unsigned char *)src)[i] == (unsigned char)c)
+			return (dst + (i + 1));
+		i++;
+	}
+	return (NULL);
 }

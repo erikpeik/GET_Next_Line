@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:17 by emende           ###   ########.fr       */
+/*   Created: 2021/12/05 17:22:19 by emende            #+#    #+#             */
+/*   Updated: 2021/12/05 17:27:01 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+/* ft_isspace -- white-space charaacter test */
+
+int	ft_isspace(int c)
 {
-	static char *arr[FD_SIZE];
+	if (c == '\t' || c == '\n' || c == '\v' \
+			|| c == '\f' || c == ' ' || c == '\r')
+		return (1);
+	return (0);
 }

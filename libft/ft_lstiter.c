@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: emende <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:17 by emende           ###   ########.fr       */
+/*   Created: 2021/12/12 15:33:51 by emende            #+#    #+#             */
+/*   Updated: 2021/12/12 16:16:24 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	static char *arr[FD_SIZE];
+	if (lst && f)
+	{
+		while (lst)
+		{
+			f(lst);
+			lst = lst->next;
+		}
+	}
 }

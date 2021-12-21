@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:17 by emende           ###   ########.fr       */
+/*   Created: 2021/11/16 17:40:22 by emende            #+#    #+#             */
+/*   Updated: 2021/11/16 17:54:45 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+void	ft_bzero(void *s, size_t n)
 {
-	static char *arr[FD_SIZE];
+	if (n != 0)
+		ft_memset(s, '\0', n);
 }

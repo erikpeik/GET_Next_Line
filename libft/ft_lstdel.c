@@ -1,18 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_lstdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:17 by emende           ###   ########.fr       */
+/*   Created: 2021/12/10 19:55:46 by emende            #+#    #+#             */
+/*   Updated: 2021/12/10 20:16:09 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+void	ft_lstdel(t_list **alst, void (*del)(void *, size_t))
 {
-	static char *arr[FD_SIZE];
+	t_list	*list;
+	t_list	*list_next;
+
+	if (alst && *alst && del)
+	{
+		list = *alst;
+		while (list)
+		{
+			list_next = list->next;
+			del(list->content, list->content_size);
+			free(list);
+			list = list->next;
+		}
+		*alst = NULL;
+	}
 }

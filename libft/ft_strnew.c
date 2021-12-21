@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:30:17 by emende           ###   ########.fr       */
+/*   Created: 2021/12/03 19:27:28 by emende            #+#    #+#             */
+/*   Updated: 2021/12/09 20:04:30 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-int	get_next_line(const int fd, char **line)
+char	*ft_strnew(size_t size)
 {
-	static char *arr[FD_SIZE];
+	unsigned char	*str;
+
+	str = (unsigned char *) malloc(sizeof(*str) * (size + 1));
+	if (!str)
+		return (NULL);
+	ft_bzero(str, (size + 1));
+	return ((char *) str);
 }

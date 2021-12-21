@@ -1,0 +1,10 @@
+main.c
+a.out
+*main.c
+*.swp
+libft-tests
+*.o
+*.a
+*.gch
+.DS_Store
+main*
