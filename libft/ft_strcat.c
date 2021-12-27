@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 15:59:40 by emende            #+#    #+#             */
-/*   Updated: 2021/12/09 19:23:02 by emende           ###   ########.fr       */
+/*   Updated: 2021/12/27 20:27:50 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,13 @@
 
 char	*ft_strcat(char *s1, const char *s2)
 {
-	size_t	i;
-	size_t	z;
-	size_t	len;
+	char	*str;
+	size_t	s2_len;
 
-	z = 0;
-	i = ft_strlen(s1);
-	len = ft_strlen(s2);
-	while (z < len)
-	{
-		s1[i] = s2[z];
-		z++;
-		i++;
-	}
-	s1[i] = '\0';
+	str = s1 + ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	ft_memcpy(str, s2, s2_len);
+	str += s2_len;
+	*str = '\0';
 	return (s1);
 }

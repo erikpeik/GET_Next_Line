@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 22:50:54 by emende            #+#    #+#             */
-/*   Updated: 2021/12/09 19:14:49 by emende           ###   ########.fr       */
+/*   Created: 2021/12/22 19:19:05 by emende            #+#    #+#             */
+/*   Updated: 2021/12/22 19:41:59 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,26 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	i;
+	void	*ptr;
 
-	i = 0;
 	if (!dst && !src)
-		return (NULL);
-	while (i < n)
+		return (dst);
+	ptr = dst;
+	while (n >= sizeof(long))
 	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		i++;
+		*(unsigned long *) ptr = *(const unsigned long *) src;
+		ptr += sizeof(long);
+		src += sizeof(long);
+		n -= sizeof(long);
 	}
+	if (n >= sizeof(int))
+	{
+		*(unsigned int *) ptr = *(const unsigned int *) src;
+		ptr += sizeof(int);
+		src += sizeof(int);
+		n -= sizeof(int);
+	}
+	while (n-- > 0)
+		*(unsigned char *) ptr++ = *(const unsigned char *) src++;
 	return (dst);
 }

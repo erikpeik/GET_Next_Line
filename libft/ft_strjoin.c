@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 23:54:04 by emende            #+#    #+#             */
-/*   Updated: 2021/12/06 19:37:51 by emende           ###   ########.fr       */
+/*   Updated: 2021/12/27 20:17:43 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,23 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
+	char	*root;
 	char	*join;
-	size_t	i;
-	size_t	j;
+	size_t	s1_len;
+	size_t	s2_len;
 
 	if (!s1 || !s2)
 		return (NULL);
-	join = (char *)malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	join = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (!join)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		join[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-	{
-		join[i] = s2[j];
-		i++;
-		j++;
-	}
-	join[i] = '\0';
-	return (join);
+	root = join;
+	ft_memcpy(join, s1, s1_len);
+	join += s1_len;
+	ft_memcpy(join, s2, s2_len);
+	join += s2_len;
+	*join = '\0';
+	return (root);
 }
