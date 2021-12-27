@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:40:54 by emende            #+#    #+#             */
-/*   Updated: 2021/12/21 13:28:21 by emende           ###   ########.fr       */
+/*   Updated: 2021/12/27 14:45:49 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define BUFF_SIZE 32
 # define FD_SIZE 4096
+
+# include "libft/libft.h"
+# include <fcntl.h>
 
 int	get_next_line(const int fd, char **line);
 
