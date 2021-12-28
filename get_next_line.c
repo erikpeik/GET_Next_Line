@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/27 21:38:27 by emende           ###   ########.fr       */
+/*   Updated: 2021/12/28 17:09:24 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,5 @@ int	get_next_line(const int fd, char **line)
 	if (!arr[fd])
 		return (-1);
 	*line = ft_strnew(0);
-	if (ft_fill(line, &arr[fd], fd, eol) == -1)
-		return (-1);
-	if (ft_last_part(line, arr, eol) == -1)
-		return (-1);
-	return (1);
+	return (ft_fill(line, &arr[fd], fd, eol));
 }
