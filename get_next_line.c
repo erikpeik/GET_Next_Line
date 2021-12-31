@@ -6,11 +6,23 @@
 /*   By: emende <emende@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2021/12/28 17:09:24 by emende           ###   ########.fr       */
+/*   Updated: 2021/12/31 21:02:43 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static int	ft_joinandfree(char **line, char **arr)
+{
+	char	*new;
+
+	new = *line;
+	*line = ft_strjoin(*line, *arr);
+	if (!(*line))
+		return (-1);
+	free(new);
+	return (0);
+}
 
 static int	ft_malloc_buffer(char **arr)
 {
@@ -23,13 +35,17 @@ static int	ft_malloc_buffer(char **arr)
 
 static int	ft_last_part(char **line, char **arr, char *eol)
 {
-	*eol = '\0';
-	*line = ft_strjoin(*line, *arr);
+	char	*new;
+
+	eol[0] = '\0';
+	ft_joinandfree(line, arr);
 	if (!*line)
 		return (-1);
+	new = *arr;
 	*arr = ft_strdup(eol + 1);
 	if (*arr == NULL)
 		return (-1);
+	free(new);
 	return (1);
 }
 
@@ -39,8 +55,7 @@ static int	ft_fill(char **line, char **arr, int fd, char *eol)
 
 	while (!eol)
 	{
-		*line = ft_strjoin(*line, *arr);
-		if (*line == NULL || ft_malloc_buffer(&arr[fd]) == -1)
+		if (ft_joinandfree(line, arr) == -1 || ft_malloc_buffer(&arr[fd]) == -1)
 			return (-1);
 		ret = read(fd, *arr, BUFF_SIZE);
 		if (ret < 0)
@@ -75,5 +90,6 @@ int	get_next_line(const int fd, char **line)
 	if (!arr[fd])
 		return (-1);
 	*line = ft_strnew(0);
+	eol = ft_strchr(arr[fd], '\n');
 	return (ft_fill(line, &arr[fd], fd, eol));
 }
