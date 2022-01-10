@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2022/01/10 11:18:55 by emende           ###   ########.fr       */
+/*   Updated: 2022/01/10 13:24:50 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ static int	ft_joinandfree(char **line, char **arr)
 {
 	char	*new;
 
-	new = *line;
-	*line = ft_strjoin(*line, *arr);
-	if (*line == NULL)
-		return (-1);
-	free(new);
+	new = ft_strjoin(*line, *arr);
+	//if (!new)
+	//	return (-1);
+	//ft_strdel(line);
+	//free(*line);
+	//*line = NULL;
+	*line = new;
 	return (0);
 }
 
 static int	ft_malloc_buffer(char **arr)
 {
-	free(*arr);
+	//ft_strdel(arr);
 	*arr = ft_strnew(BUFF_SIZE);
 	if (*arr == NULL)
 		return (-1);
@@ -35,28 +37,36 @@ static int	ft_malloc_buffer(char **arr)
 
 static int	ft_last_part(char **line, char **arr, char *eol)
 {
-	char	*new;
+	//char	*new;
+	long	res;
 
+	res = eol - *arr + 1;
 	*eol = '\0';
 	ft_joinandfree(line, arr);
-	if (!*line)
+	if (!(*line))
 		return (-1);
-	new = *arr;
-	*arr = ft_strdup(eol + 1);
-	if (*arr == NULL)
-		return (-1);
-	free(new);
+	//new = ft_strdup(eol + 1);
+	//if (!new)
+	//	return (-1);
+	//free(*arr);
+	//*arr = new;
+	//if((*arr + res) != NULL)
+	*arr = *arr + res;
 	return (1);
 }
 
-static int	ft_fill(char **line, char **arr, int fd, char *eol)
+static int	ft_fill(char **line, char **arr, const int fd, char *eol)
 {
 	ssize_t	ret;
+	char	*head[FD_SIZE];
 
+	head[fd] = arr[fd];
 	while (!eol)
 	{
-		if (ft_joinandfree(line, arr) == -1 || ft_malloc_buffer(&arr[fd]) == -1)
-			return (-1);
+		ft_joinandfree(line, arr);
+		ft_malloc_buffer(&arr[fd]);
+		//if (ft_joinandfree(line, arr) == -1 || ft_malloc_buffer(&arr[fd]) == -1)
+		//	return (-1);
 		ret = read(fd, *arr, BUFF_SIZE);
 		if (ret < 0)
 			return (-1);
@@ -67,8 +77,9 @@ static int	ft_fill(char **line, char **arr, int fd, char *eol)
 				**arr = '\0';
 				return (1);
 			}
-			ft_strdel(arr);
-			ft_strdel(line);
+			//if (*arr)
+			ft_strdel(&head[fd]); /* this break function */
+			//ft_strdel(line); /* if enabled there is (NULL) in end */
 			return (0);
 		}
 		(*arr)[ret] = '\0';
