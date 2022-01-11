@@ -6,13 +6,13 @@
 /*   By: emende <emende@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2022/01/11 22:54:05 by emende           ###   ########.fr       */
+/*   Updated: 2022/01/12 00:19:09 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	ft_joinandfree(char **line, char **arr)
+static int	ft_line_append(char **line, char **arr)
 {
 	char	*new;
 
@@ -33,14 +33,12 @@ static int	ft_malloc_buffer(char **arr)
 	return (0);
 }
 
-static int	ft_last_part(char **line, char **arr, char *eol)
+static int	ft_final_touches(char **line, char **arr, char *eol)
 {
 	char	*new;
-	long	res;
 
 	*eol = '\0';
-	res = eol - *arr;
-	ft_joinandfree(line, arr);
+	ft_line_append(line, arr);
 	new = ft_strdup(eol + 1);
 	if (!new)
 		return (-1);
@@ -55,7 +53,7 @@ static int	ft_fill(char **line, char **arr, const int fd, char *eol)
 
 	while (!eol)
 	{
-		if (ft_joinandfree(line, arr) == -1 || ft_malloc_buffer(arr) == -1)
+		if (ft_line_append(line, arr) == -1 || ft_malloc_buffer(arr) == -1)
 			return (-1);
 		ret = read(fd, *arr, BUFF_SIZE);
 		if (ret < 0)
@@ -71,15 +69,14 @@ static int	ft_fill(char **line, char **arr, const int fd, char *eol)
 			ft_strdel(line);
 			return (0);
 		}
-		(*arr)[ret] = '\0';
 		eol = ft_strchr(*arr, '\n');
 	}
-	return (ft_last_part(line, arr, eol));
+	return (ft_final_touches(line, arr, eol));
 }
 
 int	get_next_line(const int fd, char **line)
 {
-	static char	*arr[FD_SIZE + 1];
+	static char	*arr[FD_SIZE];
 	char		*eol;
 
 	if (fd < 0 || fd > FD_SIZE || !line || BUFF_SIZE <= 0)
