@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2022/01/12 00:52:00 by emende           ###   ########.fr       */
+/*   Updated: 2022/01/12 01:20:47 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,15 @@ static int	ft_final_touches(char **line, char **arr, char *eol)
 	return (1);
 }
 
-static int	ft_fill(char **line, char **arr, const int fd, char *eol)
+static int	ft_read_to_buffer(char **line, char **arr, const int fd, char *eol)
 {
 	ssize_t	ret;
 
 	while (!eol)
 	{
-		if (ft_line_append(line, arr) == -1 || ft_malloc_buffer(arr) == -1)
+		if (ft_line_append(line, arr) == -1)
+			return (-1);
+		if (ft_malloc_buffer(arr) == -1)
 			return (-1);
 		ret = read(fd, *arr, BUFF_SIZE);
 		if (ret < 0)
@@ -63,10 +65,7 @@ static int	ft_fill(char **line, char **arr, const int fd, char *eol)
 		if (ret == 0)
 		{
 			if (ft_strlen(*line) > 0)
-			{
-				**arr = '\0';
 				return (1);
-			}
 			ft_strdel(arr);
 			ft_strdel(line);
 			return (0);
@@ -92,5 +91,5 @@ int	get_next_line(const int fd, char **line)
 	eol = ft_strchr(arr[fd], '\n');
 	if (eol)
 		return (ft_final_touches(line, &arr[fd], eol));
-	return (ft_fill(line, &arr[fd], fd, eol));
+	return (ft_read_to_buffer(line, &arr[fd], fd, eol));
 }
