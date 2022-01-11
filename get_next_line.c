@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2022/01/10 13:24:50 by emende           ###   ########.fr       */
+/*   Updated: 2022/01/11 22:54:05 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	ft_joinandfree(char **line, char **arr)
 	if (!new)
 		return (-1);
 	free(*line);
-	//*line = NULL;
 	*line = new;
 	return (0);
 }
