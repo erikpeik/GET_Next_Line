@@ -6,7 +6,7 @@
 /*   By: emende <emende@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 12:57:06 by emende            #+#    #+#             */
-/*   Updated: 2022/01/12 00:19:09 by emende           ###   ########.fr       */
+/*   Updated: 2022/01/12 00:52:00 by emende           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	ft_final_touches(char **line, char **arr, char *eol)
 
 	*eol = '\0';
 	ft_line_append(line, arr);
+	if (*line == NULL)
+		return (-1);
 	new = ft_strdup(eol + 1);
 	if (!new)
 		return (-1);
@@ -82,8 +84,13 @@ int	get_next_line(const int fd, char **line)
 	if (fd < 0 || fd > FD_SIZE || !line || BUFF_SIZE <= 0)
 		return (-1);
 	if (!arr[fd])
-		ft_malloc_buffer(&arr[fd]);
+		if (ft_malloc_buffer(&arr[fd]) == -1)
+			return (-1);
 	*line = ft_strnew(0);
+	if (*line == NULL)
+		return (-1);
 	eol = ft_strchr(arr[fd], '\n');
+	if (eol)
+		return (ft_final_touches(line, &arr[fd], eol));
 	return (ft_fill(line, &arr[fd], fd, eol));
 }
