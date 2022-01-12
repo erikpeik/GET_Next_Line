@@ -38,7 +38,8 @@ static int	ft_final_touches(char **line, char **arr, char *eol)
 	char	*new;
 
 	*eol = '\0';
-	ft_line_append(line, arr);
+	if (ft_line_append(line, arr) == -1)
+		return (-1);
 	if (*line == NULL)
 		return (-1);
 	new = ft_strdup(eol + 1);
